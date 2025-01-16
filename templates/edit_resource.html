@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Resource{% endblock %}
+{% block style %}
+<style>
+            /* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Form Container */
+.form-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 5rem auto;
+    padding: 2.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-out;
+    color: #333;
+    overflow: hidden;
+}
+
+/* Header */
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: slideIn 0.7s ease-out;
+}
+
+/* Label Styles */
+label {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+label:hover {
+    color: #ff6a00;
+}
+
+/* Input, Textarea Styles */
+input, textarea {
+    padding: 1.2rem;
+    margin: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    font-size: 1rem;
+    width: 100%;
+    outline: none;
+    background: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: #ff6a00;
+    box-shadow: 0 0 10px rgba(255, 106, 0, 0.3);
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    margin-top: 2rem;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+table th {
+    padding: 1rem;
+    background-color: #ff6a00;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+table td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+table td a {
+    color: #ff6a00;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+table td a:hover {
+    color: #e65c00;
+}
+
+/* Button Styles */
+button {
+    padding: 1rem 2rem;
+    background-color: #ff6a00;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-left: 1rem;
+}
+
+button:hover {
+    background-color: #e65c00;
+    transform: scale(1.05);
+}
+
+/* Back Link Styles */
+.back-link {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.back-link a {
+    color: #ff6a00;
+    font-size: 1.2rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.back-link a:hover {
+    color: #e65c00;
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .form-container {
+        padding: 2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    label {
+        font-size: 1rem;
+    }
+
+    input, textarea {
+        font-size: 0.95rem;
+        padding: 1rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 1rem 2rem;
+    }
+
+    table th {
+        font-size: 0.95rem;
+    }
+
+    table td {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    label {
+        font-size: 0.95rem;
+    }
+
+    input, textarea {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+
+    button {
+        font-size: 0.95rem;
+        padding: 0.8rem 1.8rem;
+    }
+
+    table th {
+        font-size: 0.9rem;
+    }
+
+    table td {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 1.2rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    input, textarea {
+        font-size: 0.85rem;
+        padding: 0.8rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 0.7rem 1.5rem;
+    }
+
+    table th {
+        font-size: 0.85rem;
+    }
+
+    table td {
+        font-size: 0.85rem;
+    }
+}
+</style>
+{% endblock %}
+
+
+{% block body %}
+<h2>Edit Resource</h2>
+
+<form method="POST" action="{{ url_for('edit_resource', resource_id=resource.id) }}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{ resource.name }}" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required>{{ resource.description }}</textarea>
+
+    <label for="link">Link:</label>
+    <input type="url" id="link" name="link" value="{{ resource.link }}">
+
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="category" value="{{ resource.category }}" required>
+
+    <button type="submit">Update Resource</button>
+</form>
+
+<a href="{{ url_for('manage_resources') }}">Back to Resources</a>
+{% endblock %}

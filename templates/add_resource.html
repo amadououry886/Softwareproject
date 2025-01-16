@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Resource{% endblock %}
+{% block style %}
+    <style>
+                    /* Global Styling */
+                    body {
+            font-family: 'Roboto', sans-serif;
+            background: #F0F4F8;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: linear-gradient(135deg, #ffffff 0%, #e6f7ff 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        label {
+            font-size: 1.1rem;
+            color: #555;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+            letter-spacing: 0.5px;
+            text-align: left;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            font-size: 1rem;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #6c63ff;
+            background-color: #fff;
+            outline: none;
+            box-shadow: 0 0 10px rgba(108, 99, 255, 0.2);
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            background-color: #6c63ff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5a54e5;
+            transform: translateY(-4px);
+        }
+
+        .back-link {
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            font-size: 1.1rem;
+            color: #6c63ff;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .back-link a:hover {
+            color: #4e44e5;
+            text-decoration: underline;
+            transform: translateX(5px);
+        }
+
+        /* Animation for Fade-In */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 2rem;
+            }
+
+            input, textarea {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+
+            button {
+                font-size: 1.1rem;
+                padding: 10px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<h2>Add Resource</h2>
+
+<form method="POST" action="{{ url_for('add_resource') }}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="link">Link:</label>
+    <input type="url" id="link" name="link">
+
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="category" required>
+
+    <button type="submit">Add Resource</button>
+</form>
+
+<a href="{{ url_for('manage_resources') }}">Back to Resources</a>
+{% endblock %}

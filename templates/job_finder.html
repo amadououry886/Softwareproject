@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url('https://bold-org.ghost.io/content/images/2022/09/graduate-students-scholarships.jpg');
+            background-size: cover; /* Ensures the image covers the full body */
+            background-position: center; /* Centers the image */
+            background-attachment: fixed; /* Keeps the image in place when scrolling */
+            height: 100vh; /* Ensures the body takes the full viewport height */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem 0;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #555;
+        }
+
+        form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        select {
+            flex: 1;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 0.8rem 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .list {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .list h3 {
+            margin: 0 0 0.5rem;
+            color: #333;
+        }
+
+        .list p {
+            margin: 0.5rem 0;
+        }
+
+        .list a {
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: white;
+            background-color: #28a745;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .list a:hover {
+            background-color: #218838;
+        }
+
+        a.back-to-dashboard {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a.back-to-dashboard:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+</head>
+<body>
+
+{% block body %}
+    <p>Explore exciting job opportunities.</p>
+
+    <!-- Job Filter -->
+    <form method="POST">
+        <select name="category">
+        {% for category in categories %}
+            <option value="{{ category }}">{{ category }}</option>
+        {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Job Listings -->
+    <h2>Available Jobs</h2>
+    <ul class="ul">
+        {% for job in jobs %}
+            <li class="list">
+                <h3>{{ job.title }} at {{ job.company }}</h3>
+                <p>{{ job.description }}</p>
+                <p><strong>Location:</strong> {{ job.location }}</p>
+                <p><strong>Category:</strong> {{ job.category }}</p>
+                <a href="{{ job.apply_link }}" target="_blank">Apply Now</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('dashboard') }}" class="back-to-dashboard">Back to Dashboard</a>
+</main>
+
+{% endblock %}
+</body>
+</html>

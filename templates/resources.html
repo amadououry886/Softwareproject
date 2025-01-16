@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        background-image: url('https://elearningindustry.com/wp-content/uploads/2020/06/ways-online-educational-resources-are-useful.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        height: 100vh;
+    }
+
+    header {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 1rem 0;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    header h2 {
+        margin: 0;
+    }
+
+    main {
+        width: 90%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 1.5rem;
+    }
+
+    .resource-item {
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        flex: 1 1 calc(33% - 1rem);
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+    .resource-item h3 {
+        margin: 0 0 0.5rem;
+        color: #333;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .resource-item p {
+        margin: 0.5rem 0;
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .resource-item a {
+        display: inline-block;
+        margin-top: 0.5rem;
+        color: white;
+        background-color: #007bff;
+        padding: 0.75rem 1.25rem;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .resource-item a:hover {
+        background-color: #0056b3;
+    }
+
+    .no-resources {
+        text-align: center;
+        color: #555;
+        font-size: 1.2rem;
+    }
+
+    .submit-resource-link {
+        display: inline-block;
+        margin-top: 2rem;
+        color: #28a745;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1rem;
+        transition: text-decoration 0.3s ease;
+    }
+
+    .submit-resource-link:hover {
+        text-decoration: underline;
+    }
+
+    .Resources {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: space-between;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .resource-item {
+            flex: 1 1 calc(50% - 1rem);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .resource-item {
+            flex: 1 1 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+    <header>
+        <h2>Available Resources</h2>
+    </header>
+    <main>
+        <a href="{{ url_for('add_resource') }}" class="submit-resource-link">Submit a New Resource</a>
+        <div class="Resources">
+            {% if resources %}
+                {% for resource in resources %}
+                    <div class="resource-item">
+                        <h3>{{ resource.name }}</h3>
+                        <p>{{ resource.description }}</p>
+                        <a href="{{ resource.link }}" target="_blank">Apply Here</a> <!-- Link to the resource -->
+                        <p><strong>Category:</strong> {{ resource.category }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-resources">No resources available right now.</p>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}

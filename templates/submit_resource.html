@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a New Resource</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 0;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        main {
+            width: 90%;
+            max-width: 600px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea, select {
+            margin-top: 0.5rem;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 1.5rem;
+            padding: 0.8rem;
+            font-size: 1rem;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Submit a New Resource</h2>
+    </header>
+    <main>
+        <form method="POST">
+            <label for="name">Resource Name:</label>
+            <input type="text" name="name" id="name" placeholder="Enter the resource name" required>
+
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" rows="4" placeholder="Provide a brief description" required></textarea>
+
+            <label for="link">Link:</label>
+            <input type="url" name="link" id="link" placeholder="Enter a valid URL">
+
+            <label for="category">Category:</label>
+            <select name="category" id="category" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="Scholarships">Scholarships</option>
+                <option value="Training Programs">Training Programs</option>
+                <option value="Financial Assistance">Financial Assistance</option>
+            </select>
+
+            <button type="submit">Submit Resource</button>
+        </form>
+        <a href="{{ url_for('resources') }}" class="back-link">Back to Resources</a>
+    </main>
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+                /* Header */
+                header {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #f0a500;
+        }
+
+    </style>
+    {% block style %}
+    {% endblock %}
+    <title> {% block title %} {% endblock %} </title>
+</head>
+<body>
+        <!-- Header -->
+        <header>
+            <nav>
+                <div class="logo">
+                    <h1>HopeHub</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+                    <li><a href="{{ url_for('job_finder') }}">Job Finder</a></li>
+                    <li><a href="{{ url_for('resources') }}">Resources</a></li>
+                    {% if g.user %}
+                        {% if g.user.role == 'admin' %}
+                        <li><a href="{{ url_for('add_job') }}">Add Job</a></li>
+                        <li><a href="{{ url_for('add_resource') }}">Add Resource</a></li>
+                        <li><a href="{{ url_for('manage_jobs') }}">Manage Jobs</a></li> <!-- Link to Manage Jobs -->
+                        <li><a href="{{ url_for('manage_resources') }}">Manage Resources</a></li> <!-- Link to Manage Resources -->
+                        {% endif %}
+                    {% endif %}
+                    <li><a href="{{ url_for('login') }}">Log Out</a></li>
+                </ul>
+            </nav>
+        </header>
+    {% block body %}
+    {% endblock %}
+</body>
+</html>
