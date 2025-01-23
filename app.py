@@ -19,7 +19,7 @@ class User(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
+    email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(255), nullable=False)  # Assuming you will hash the password
     role = db.Column(db.String(50), nullable=False, default='user')  # Role can be 'user' or 'admin'
     
@@ -93,11 +93,23 @@ def create_account():
         password = request.form['password']
         email = request.form['email']
 
-        new_user = User(username=username, password=password, email=email)
-        db.session.add(new_user)
-        db.session.commit()
+        # Check if the username already exists
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            flash("Username already exists. Please choose a different one.", "error")
+            return redirect(url_for('create_account'))
 
-        return redirect(url_for('login'))
+        try:
+            # Create a new user
+            new_user = User(username=username, password=password, email=email)
+            db.session.add(new_user)
+            db.session.commit()
+            flash("Account created successfully. Please log in.", "success")
+            return redirect(url_for('login'))
+        except IntegrityError:
+            db.session.rollback()
+            flash("An error occurred while creating the account. Please try again.", "error")
+            return redirect(url_for('create_account'))
 
     return render_template('create_account.html')
 
@@ -306,6 +318,13 @@ def delete_resource(resource_id):
 def policy():
     return render_template('privacy_policy.html')
 
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
+
+@app.route('/contact', methods=['GET'])
+def contact():
+    return render_template('contact.html')
 # Logout route
 @app.route('/logout')
 def logout():

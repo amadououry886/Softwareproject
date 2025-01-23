@@ -4,22 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container Styling */
+        .container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Heading */
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+
+        /* Flash Messages */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li.success {
+            color: green;
+            margin-bottom: 1rem;
+        }
+
+        li.error {
+            color: red;
+            margin-bottom: 1rem;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {
+            text-align: left;
+            font-weight: bold;
+            margin-bottom: 0.2rem;
+        }
+
+        input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        button {
+            padding: 0.7rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Create Account</h1>
-    <form method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
+    <div class="container">
+        <h1>Create Account</h1>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
 
-        <button type="submit">Create Account</button>
-    </form>
-    <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+        <!-- Form -->
+        <form method="POST">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <button type="submit">Create Account</button>
+        </form>
+
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+    </div>
 </body>
 </html>
-
